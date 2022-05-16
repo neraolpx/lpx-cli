@@ -1,0 +1,27 @@
+{
+  "name": "lpx-cli",
+  "version": "1.0.0",
+  "description": "this is a simple scaffolding",
+  "main": "index.js",
+  "bin": {
+    "lpx": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neraolpx/lpx-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neraolpx/lpx-cli/issues"
+  },
+  "homepage": "https://github.com/neraolpx/lpx-cli#readme",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "commander": "^9.2.0",
+    "inquirer": "^8.2.4"
+  }
+}
