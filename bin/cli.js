@@ -2,6 +2,7 @@
 'use strict';
 const program = require('commander');
 const inquirer = require('inquirer');
+const create = require('../src/create');
 const consoleColors = require('../utils/index');
 const { blue, yellow, red, green } = consoleColors;
 
@@ -45,8 +46,11 @@ program
   .command('create')
   .description('create a project')
   .action((source, destination) => {
-    green('欢迎使用lpxcli，轻松构建react + ts项目');
-    inquirer.prompt(question).then(answer => console.log('answer=', answer));
+    green('欢迎使用lpxcli, 轻松构建react + ts项目');
+    inquirer.prompt(question).then(answer => {
+      if (answer.conf)
+        create(answer);
+    });
   });
 
 /* start project */
