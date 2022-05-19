@@ -1,10 +1,12 @@
 
 const fs = require('fs')
 const utils = require('../utils');
+const install = require('./npm');
 
 let fileCount = 0, /* 文件数量 */
     dirCount = 0,  /* 文件夹数量 */
     flat = 0       /* readir数量 */
+    isInstall = false /* 是否执行过install */
 
 /**
  * 复制文件
@@ -39,7 +41,7 @@ function copy(sourcePath, currentPath, cb) {
         } else if (stat.isDirectory()) { // 处理文件夹
           if (path !== '.git' && path !== 'package.json') {
             dirCount++;
-            dirExist(newSourcePath, newCurrentPath, cb); //
+            dirExist(newSourcePath, newCurrentPath, cb); //处理文件夹
           }
         }
       })
@@ -77,7 +79,11 @@ function completeCtrl(cb) {
   if (fileCount === 0 && dirCount === 0 && flat === 0) {
     utils.green('------创建完成------');
     if (cb && !isInstall) { //自动install
-      cb();
+      utils.blue('------开始安装依赖------')
+      cb(() => {
+        utils.blue('------依赖安装完成------');
+        runProject(); // 运行项目
+      });
     }
   }
 }
@@ -107,6 +113,20 @@ function revisePackageJson(res, sourcePath) {
   })
 }
 
+/**
+ * 运行项目
+ * @param {*} res 
+ */
+function runProject() {
+  try {
+    /* 调用npm执行 start命令 */
+    const start = npm(['start']);
+    start();
+  } catch (error) {
+    utils.red('自动启动失败，请手动执行 npm start 启动项目')
+  }
+}
+
 module.exports = function (res) {
   /* 创建文件 */
   utils.green('------开始创建------');
@@ -115,6 +135,6 @@ module.exports = function (res) {
   utils.blue(`当前路径:${process.cwd()}`);
   /* 修改package.json */
   revisePackageJson(res, sourcePath).then(() => {
-    copy(sourcePath, process.cwd())
+    copy(sourcePath, process.cwd(), install())
   })
 }

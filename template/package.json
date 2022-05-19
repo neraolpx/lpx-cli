@@ -34,7 +34,7 @@
     "happypack": "^5.0.1",
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
-    "rux-react-webpack-plugin": "^1.0.3",
+    "lpx-react-webpack-plugin": "^1.0.0",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
     "ts-loader": "^4.5.0",

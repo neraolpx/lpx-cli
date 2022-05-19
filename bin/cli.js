@@ -3,7 +3,9 @@
 const program = require('commander');
 const inquirer = require('inquirer');
 const create = require('../src/create');
+const start = require('../src/start');
 const consoleColors = require('../utils/index');
+
 const { blue, yellow, red, green } = consoleColors;
 
 const question = [
@@ -59,6 +61,8 @@ program
   .description('start a project')
   .action((source, destination) => {
     green('--------运行项目--------');
+    /* 运行项目 */
+    start('start').then(() => green('------运行完成------'));
   });
 
 /* build project */
@@ -67,6 +71,8 @@ program
   .description('build a project')
   .action((source, destination) => {
     green('--------构建项目--------');
+    /* 打包项目 */
+    start('build').then(() => green('------构建完成------'));
   });
 
 program.parse(process.argv);
